@@ -5,8 +5,6 @@ use std::io::prelude::*;
 
 fn main() {
 
-    let my_args: Vec<String> = env::args().collect();
-
     let file_name = &env::args().nth(1).unwrap();
     let col_number_str = &env::args().nth(2).unwrap();
     let col_number: u32 = col_number_str.parse::<u32>().unwrap();
@@ -27,9 +25,8 @@ fn main() {
             break;
         }
         let line = line.unwrap();
-        let mut my_vec: Vec<&str> = line.split(",").collect();
-        let temp: Vec<&str> = vec![green, my_vec[2], nc];
-        let mut colored_string = "".to_string() + green + my_vec[2] + nc;
+        let my_vec: Vec<&str> = line.split(",").collect();
+        let colored_string = "".to_string() + green + my_vec[2] + nc;
 
         for i in 0..col_number {
             print!("{}{}", my_vec[i as usize], delim);
