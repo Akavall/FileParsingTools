@@ -26,7 +26,7 @@ fn main() {
         }
         let line = line.unwrap();
         let my_vec: Vec<&str> = line.split(",").collect();
-        let colored_string = "".to_string() + green + my_vec[2] + nc;
+        let colored_string = "".to_string() + green + my_vec[col_number] + nc;
 
         for i in 0..col_number {
             print!("{}{}", my_vec[i], delim);
