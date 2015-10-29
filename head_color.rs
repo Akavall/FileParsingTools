@@ -11,8 +11,7 @@ fn main() {
 
     // delim needs to char type
     let delim_raw = &env::args().nth(3).unwrap();
-    let temp: Vec<char> = delim_raw.chars().collect();
-    let delim = temp[0];
+    let delim = delim_raw.chars().nth(0).unwrap();
 
     let n_lines_str = &env::args().nth(4).unwrap();
     let n_lines: usize = n_lines_str.parse::<usize>().unwrap();
