@@ -29,3 +29,22 @@ head_color my_file.txt 2 "," 5
 
 Will show first 5 rows including the header; all elements in the second column will be colored green.
 The delimiter is needed for the function to know where the columns are.
+
+**Using col_counter:**
+
+```
+rustc head_color.rs
+sudo mv col_counter /usr/bin
+```
+
+Usage:
+```
+col_counter -file_name -column_number -delim -top_n_most_common_items
+```
+
+Example:
+```
+col_counter my_file.txt 2 "," 5
+```
+
+Will display ranks, and counts corresponding to 5 most frequently occuring items.
