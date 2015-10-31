@@ -3,6 +3,7 @@ use std::io::BufReader;
 use std::fs::File;
 use std::io::prelude::*;
 use std::collections::HashMap;
+use std::cmp;
 
 fn main() {
 
@@ -37,12 +38,7 @@ fn main() {
     let mut my_counter_items: Vec<(String, usize)> = my_counter.clone().into_iter().collect();
     my_counter_items.sort_by(|a, b| b.1.cmp(&a.1));
 
-    let n_lines_to_print;
-    if my_counter_items.len() < n_lines {
-        n_lines_to_print = my_counter_items.len();
-    } else {
-        n_lines_to_print = n_lines;
-    }
+    let n_lines_to_print = cmp::min(n_lines, my_counter_items.len());
 
     let green: &str = "\x1b[0;33m";
     let no_color: &str = "\x1b[0m"; 
