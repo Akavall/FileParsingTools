@@ -48,3 +48,35 @@ col_counter my_file.txt 2 "," 5
 ```
 
 Will display ranks, and counts corresponding to 5 most frequently occuring items.
+
+**Using set_func:**
+
+Only applies to two files that have single columns.
+
+```
+rustc set_func.rs
+sudo mv set_func /usr/bin
+```
+
+Usage:
+```
+set_func -file_1_name -file_1_name -function_type
+```
+
+function_tupe:
+```
+-u <- union
+-i <- intersection
+-d <- difference
+```
+
+Example:
+To print the results:
+```
+set_func file_1.txt file_2.txt -u
+```
+
+To pipe the results to another file
+```
+set_func file_1.txt file_2.txt -u > file_3.txt
+```
