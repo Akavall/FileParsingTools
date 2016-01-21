@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::collections::HashSet;
 
-fn make_set_from_file (file_name: &str) -> HashSet<String> {
+fn make_set_from_file (file_name: String) -> HashSet<String> {
 
     let mut my_set: HashSet<String> = HashSet::new();
     let f = File::open(file_name).unwrap();
@@ -18,23 +18,26 @@ fn make_set_from_file (file_name: &str) -> HashSet<String> {
 }
 
 fn main() {
-    let file_name_1: &str = &env::args().nth(1).unwrap();
-    let file_name_2: &str = &env::args().nth(2).unwrap();
-    let function_type = env::args().nth(3).unwrap();
+    let file_name_1 = env::args().nth(1).unwrap();
+    let file_name_2 = env::args().nth(2).unwrap();
+
+    let function_type_raw = env::args().nth(3);
+    let function_type: String;
+    match function_type_raw {
+        Some(my_val) => function_type = my_val,
+        None => panic!("Error wrong number of arguments. Example input: \x1b[0;32mset_func file_name_1.txt file_name_2.txt -u\x1b[0m. Where -u -> union, -d -> difference, i -> intersection"),
+    }
 
     let my_set_1 = make_set_from_file(file_name_1);
     let my_set_2 = make_set_from_file(file_name_2);
 
-    let mut result_set: HashSet<String> = HashSet::new();
+    let result_set: HashSet<String>;
     
-    if function_type == "-u" {
-        result_set = my_set_1.union(&my_set_2).cloned().collect();
-    } else if function_type == "-d" {
-        result_set = my_set_1.difference(&my_set_2).cloned().collect();
-    } else if function_type == "-i" {
-        result_set = my_set_1.intersection(&my_set_2).cloned().collect();
-    } else {
-        println!("ERROR: function_type is not specified: use: -u, -d, -i")
+    match &*function_type {
+        "-u" => result_set = my_set_1.union(&my_set_2).cloned().collect(),
+        "-d" => result_set = my_set_1.difference(&my_set_2).cloned().collect(),
+        "-i" => result_set = my_set_1.intersection(&my_set_2).cloned().collect(),
+        _ => panic!("Error function type not correctly specified. Example input: \x1b[0;32mset_func file_name_1.txt file_name_2.txt -u\x1b[0m. Where -u -> union, -d -> difference, i -> intersection")
     }
 
     for ele in result_set {
