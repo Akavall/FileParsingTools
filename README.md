@@ -63,7 +63,7 @@ Usage:
 set_func -file_1_name -file_1_name -function_type
 ```
 
-function_tupe:
+function_type:
 ```
 -u <- union
 -i <- intersection
