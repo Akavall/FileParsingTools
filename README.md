@@ -3,19 +3,9 @@ Rust learning project, creates a binary file that works similar to head on linux
 
 Instalation:
 
-To link statically: 
-
-```
-rustc head_color.rs
-sudo mv head_color /usr/bin
-```
-
-To link dynamically, creates a smaller executable:
-
-```
-rustc -C prefer-dynamic head_color.rs
-sudo mv head_color /usr/bin
-```
+1) Clone the repo
+2) Build with: `cargo build --release`
+3) The executables will be in `FileParsingTools/target/release` directory
 
 Usage:
 ```
