@@ -1,0 +1,22 @@
+[package]
+name = "temp"
+version = "0.1.0"
+authors = ["Akavall <akavall@gmail.com>"]
+
+[dependencies]
+
+[[bin]]
+name = "head_color"
+path = "src/head_color/bin/main.rs"
+
+[[bin]]
+name = "col_counter"
+path = "src/col_counter/bin/main.rs"
+
+[[bin]]
+name = "set_func"
+path = "src/set_func/bin/main.rs"
+
+[[bin]]
+name = "n_rows"
+path = "src/n_rows/bin/main.rs"
