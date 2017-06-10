@@ -5,18 +5,45 @@ use std::io::prelude::*;
 
 fn main() {
 
-    let file_name = &env::args().nth(1).unwrap();
-    let col_number_str = &env::args().nth(2).unwrap();
-    let col_number: usize = col_number_str.parse::<usize>().unwrap();
+    let example_input = "Example Input: \x1b[0;32mhead_color my_file.txt 2 \",\" 10 \x1b[0m. Where 2 -> 2nd column, \",\" -> delimiter, 10 -> first rows displayed";
 
-    // delim needs to char type
-    let delim_raw = &env::args().nth(3).unwrap();
-    let delim = delim_raw.chars().nth(0).unwrap();
 
-    let n_lines_str = &env::args().nth(4).unwrap();
-    let n_lines: usize = n_lines_str.parse::<usize>().unwrap();
+    let args: Vec<String> = env::args().collect();
 
-    let f = File::open(file_name).unwrap();
+    if args.len() - 1 != 4 {
+        panic!("Expecting 4 arguments, received: {}, {}", args.len() - 1, example_input);
+    }
+
+    let ref file_name = args[1];
+    let ref col_number_str = args[2];
+
+    let col_number: usize = match col_number_str.parse::<usize>() {
+        Ok(col_number) => col_number,
+        Err(_) => panic!("Could not parse the col number: {}", example_input),
+    };
+
+    // delim needs to be char type
+    let ref delim_raw = args[3];
+
+    // Still needs to be handled properly
+    // delim ",34353" => ","
+    let delim = match delim_raw.chars().nth(0) {
+        Some(delim) => delim,
+        None => panic!("Could not parse the delimiter: {}", example_input),
+    };
+
+    let ref n_lines_str = args[4];
+
+    let n_lines: usize = match n_lines_str.parse::<usize>() {
+        Ok(n_lines) => n_lines,
+        Err(_) => panic!("Could not parse n_lines: {}", example_input),
+    };
+
+    let f = match File::open(file_name) {
+        Ok(f) => f,
+        Err(_) => panic!("Could not open file: {} check if the file exists. Are you sure your input is correct? {}", file_name, example_input),
+    };
+
     let reader = BufReader::new(f);
 
     let mut row_number = 0;
