@@ -14,6 +14,13 @@ fn main() {
         panic!("Expecting 4 arguments, received: {}, {}", args.len() - 1, example_input);
     }
 
+    // args is vector of owned Strings
+    // String does not implement copy,
+    // therefore, we can't simply index args,
+    // because we would be moving an element
+    // and invalidating a vector, we have to 
+    // use a reference
+
     let ref file_name = args[1];
     let ref col_number_str = args[2];
 
